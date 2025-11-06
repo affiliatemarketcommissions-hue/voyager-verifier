@@ -1,14 +1,12 @@
 # API Reference
 
-This reference documents the Voyager API endpoints, request/response formats, and job lifecycle for contract verification.
+This reference documents the Voyager API status endpoint for checking verification job status.
 
 ## Quick Reference
 
 | Endpoint | Method | Purpose | Authentication |
 |----------|--------|---------|----------------|
-| `/class-verify/{class_hash}` | POST | Submit verification job | None |
 | `/class-verify/job/{job_id}` | GET | Get job status | None |
-| `/classes/{class_hash}` | GET | Check if class exists | None |
 
 **Base URLs:**
 - **Mainnet:** `https://api.voyager.online`
@@ -20,105 +18,7 @@ This reference documents the Voyager API endpoints, request/response formats, an
 
 ## API Endpoints
 
-### 1. Submit Verification
-
-**Submit a contract for verification**
-
-```http
-POST /class-verify/{class_hash}
-Host: api.voyager.online
-Content-Type: application/json
-```
-
-**Path Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `class_hash` | string | Yes | Contract class hash (0x...) |
-
-**Request Body:**
-
-```json
-{
-  "name": "MyContract",
-  "version": "0.1.0",
-  "contract_file": "src/contract.cairo",
-  "project_dir_path": ".",
-  "cairo_version": "2.8.4",
-  "scarb_version": "2.8.4",
-  "license": "MIT",
-  "build_tool": "scarb",
-  "dojo_version": null,
-  "files": {
-    "Scarb.toml": "base64_encoded_content",
-    "src/lib.cairo": "base64_encoded_content",
-    "src/contract.cairo": "base64_encoded_content"
-  }
-}
-```
-
-**Request Body Fields:**
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | Yes | Contract/package name |
-| `version` | string | Yes | Package version |
-| `contract_file` | string | Yes | Relative path to contract file |
-| `project_dir_path` | string | Yes | Project directory path (usually ".") |
-| `cairo_version` | string | Yes | Cairo version (e.g., "2.8.4") |
-| `scarb_version` | string | Yes | Scarb version (e.g., "2.8.4") |
-| `license` | string | No | SPDX license identifier |
-| `build_tool` | string | Yes | Build tool: "scarb" or "sozo" |
-| `dojo_version` | string | No | Dojo version (if Dojo project) |
-| `files` | object | Yes | Map of file paths to base64-encoded content |
-
-**Response (Success - 200 OK):**
-
-```json
-{
-  "job_id": "abc123def456"
-}
-```
-
-**Response Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `job_id` | string | Unique job identifier for tracking |
-
-**Response (Error - 4xx/5xx):**
-
-```json
-{
-  "error": "Error message describing what went wrong"
-}
-```
-
-**Example with cURL:**
-
-```bash
-curl -X POST https://api.voyager.online/class-verify/0x044dc2b3... \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Counter",
-    "version": "0.1.0",
-    "contract_file": "src/lib.cairo",
-    "project_dir_path": ".",
-    "cairo_version": "2.8.4",
-    "scarb_version": "2.8.4",
-    "license": "MIT",
-    "build_tool": "scarb",
-    "dojo_version": null,
-    "files": {
-      "Scarb.toml": "W3BhY2thZ2VdCm5hbWUgPSAiQ291bnRlciIKdmVyc2lvbiA9ICIwLjEuMCIK...",
-      "src/lib.cairo": "I1tzdGFya25ldDo6Y29udHJhY3RdCm1vZCBDb3VudGVyIHsKICAg..."
-    }
-  }'
-```
-
----
-
-### 2. Get Job Status
+### Get Job Status
 
 **Check the status of a verification job**
 
@@ -187,45 +87,6 @@ Host: api.voyager.online
 
 ```bash
 curl https://api.voyager.online/class-verify/job/abc123def456
-```
-
----
-
-### 3. Check Class Exists
-
-**Check if a class hash exists in the explorer**
-
-```http
-GET /classes/{class_hash}
-Host: api.voyager.online
-```
-
-**Path Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `class_hash` | string | Yes | Contract class hash (0x...) |
-
-**Response (Exists - 200 OK):**
-
-```json
-{
-  "status": "ok"
-}
-```
-
-**Response (Not Found - 404):**
-
-```json
-{
-  "error": "Class not found"
-}
-```
-
-**Example with cURL:**
-
-```bash
-curl https://api.voyager.online/classes/0x044dc2b3...
 ```
 
 ---
@@ -401,9 +262,7 @@ Network: starknet-mainnet
 
 Usage:
 ```bash
-voyager verify --network mainnet \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+voyager status --network mainnet --job abc123def456
 ```
 
 **2. Sepolia Testnet**
@@ -415,9 +274,7 @@ Network: starknet-sepolia
 
 Usage:
 ```bash
-voyager verify --network sepolia \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+voyager status --network sepolia --job abc123def456
 ```
 
 **3. Dev Environment**
@@ -429,9 +286,7 @@ Network: starknet-dev
 
 Usage:
 ```bash
-voyager verify --network dev \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+voyager status --network dev --job abc123def456
 ```
 
 ### Custom Endpoints
@@ -439,55 +294,38 @@ voyager verify --network dev \
 **For staging/internal environments:**
 
 ```bash
-voyager verify --network custom \
+voyager status --network custom \
   --endpoint https://api.custom-environment.com \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+  --job abc123def456
 ```
 
 **Custom Endpoint Requirements:**
 
 1. Must be a valid HTTPS URL
-2. Must implement the same API endpoints
+2. Must implement the same API endpoint
 3. Must accept standard request formats
 
 **Example Custom Endpoint:**
 
 ```bash
 # Company internal deployment
-voyager verify --network custom \
+voyager status --network custom \
   --endpoint https://starknet-verify.company.com \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+  --job abc123def456
 
 # Local development server
-voyager verify --network custom \
+voyager status --network custom \
   --endpoint http://localhost:8080 \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+  --job abc123def456
 ```
 
 ---
 
 ## Request/Response Examples
 
-### Complete Verification Flow
+### Checking Job Status
 
-**1. Submit Verification:**
-
-```bash
-# Using Voyager CLI
-voyager verify --network mainnet \
-  --class-hash 0x044dc2b3abc123def456... \
-  --contract-name Counter
-
-# Output:
-# ✨ Verification job submitted successfully!
-# 📋 Job ID: abc123def456
-# 🔗 Track at: https://voyager.online/contract/0x044dc2b3...
-```
-
-**2. Check Status (Immediately):**
+**1. Check Status (Immediately):**
 
 ```bash
 voyager status --network mainnet --job abc123def456
@@ -498,7 +336,7 @@ voyager status --network mainnet --job abc123def456
 # ⏳ Status: Job submitted and queued for processing
 ```
 
-**3. Check Status (After 10 seconds):**
+**2. Check Status (After 10 seconds):**
 
 ```bash
 voyager status --network mainnet --job abc123def456
@@ -510,7 +348,7 @@ voyager status --network mainnet --job abc123def456
 # ⚙️  Status: Contract compiled successfully, verifying hash
 ```
 
-**4. Check Status (After 20 seconds):**
+**3. Check Status (After 20 seconds):**
 
 ```bash
 voyager status --network mainnet --job abc123def456
@@ -674,9 +512,7 @@ Solution: Retry with exponential backoff, contact support if persistent
 
 ```bash
 # Voyager CLI handles retries automatically
-voyager verify --network mainnet \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+voyager status --network mainnet --job abc123def456
 
 # If network fails:
 # ⚠️  Network error, retrying... (attempt 1/5)
@@ -689,9 +525,7 @@ voyager verify --network mainnet \
 # Set custom timeout (default: 30 minutes)
 export VOYAGER_TIMEOUT_MINUTES=60
 
-voyager verify --network mainnet \
-  --class-hash 0x044dc2b3... \
-  --contract-name MyContract
+voyager status --network mainnet --job abc123def456
 ```
 
 ---
@@ -702,21 +536,9 @@ voyager verify --network mainnet \
 
 **No official rate limits documented**, but recommended best practices:
 
-1. **Don't spam the API**: Wait for job completion before submitting new jobs
-2. **Use exponential backoff**: When polling status
-3. **Cache results**: Don't re-verify already verified contracts
-4. **Batch operations**: Use history to check existing verifications first
-
-### Checking Before Verification
-
-```bash
-# Check history first to avoid duplicate submissions
-voyager history --network mainnet \
-  --class-hash 0x044dc2b3... \
-  --limit 10
-
-# If already verified, no need to submit again
-```
+1. **Don't spam the API**: Use exponential backoff when polling status
+2. **Use exponential backoff**: When polling status to avoid excessive requests
+3. **Cache results**: Store job status locally to avoid repeated API calls
 
 ---
 
@@ -728,7 +550,6 @@ voyager history --network mainnet \
 
 **Endpoint Structure:**
 ```
-https://api.voyager.online/class-verify/{class_hash}
 https://api.voyager.online/class-verify/job/{job_id}
 ```
 
@@ -738,7 +559,7 @@ https://api.voyager.online/class-verify/job/{job_id}
 
 Future API versions may use path-based versioning:
 ```
-https://api.voyager.online/v2/class-verify/{class_hash}
+https://api.voyager.online/v2/class-verify/job/{job_id}
 ```
 
 **Backward Compatibility:**
@@ -754,8 +575,8 @@ Current v1 endpoints will continue to work when v2 is introduced.
 **All requests must use HTTPS:**
 
 ```bash
-✅ https://api.voyager.online/class-verify/...
-❌ http://api.voyager.online/class-verify/...  # Not allowed
+✅ https://api.voyager.online/class-verify/job/abc123
+❌ http://api.voyager.online/class-verify/job/abc123  # Not allowed
 ```
 
 ### No Authentication Required
@@ -767,27 +588,10 @@ Current v1 endpoints will continue to work when v2 is introduced.
 curl https://api.voyager.online/class-verify/job/abc123
 ```
 
-### Data Privacy
-
-**What is stored:**
-
-- Contract source code (for verification)
-- Package metadata (name, version, license)
-- Build configuration (Cairo/Scarb versions)
-- Compilation results
-
-**What is NOT stored:**
-
-- User personal information
-- IP addresses (for long term)
-- API access logs (beyond operational needs)
-
 ### Best Practices
 
-1. **Don't include secrets**: Remove private keys, API keys from source before submission
-2. **Review files**: Use `--dry-run` to preview what will be submitted
-3. **Use HTTPS**: Always use secure connections
-4. **Validate class hashes**: Ensure class hash is correct before submission
+1. **Use HTTPS**: Always use secure connections
+2. **Validate job IDs**: Ensure job ID is correct before querying
 
 ---
 
