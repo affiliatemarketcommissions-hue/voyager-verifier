@@ -55,7 +55,7 @@ Enter choice [1-4]: 1
 Enter class hash:
 ```
 
-**Input:** The class hash of your deployed contract (hexadecimal starting with `0x`)
+**Input:** The class hash of your declared contract class (hexadecimal starting with `0x`)
 
 **Example:**
 ```

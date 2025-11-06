@@ -8,7 +8,7 @@ Before starting, ensure you have:
 
 - ✅ Voyager Verifier installed ([installation guide](./README.md))
 - ✅ A Scarb project that builds successfully (`scarb --release build`)
-- ✅ A deployed contract with its class hash
+- ✅ A declared contract class with its class hash
 - ✅ Your contract name
 
 ## Choose Your Path
@@ -60,7 +60,7 @@ The wizard will ask you for:
    - Example: `mainnet`
 
 2. **Class Hash**
-   - The class hash of your deployed contract
+   - The class hash of your declared contract class
    - Example: `0x044dc2b3239382230d8b1e943df23b96f52eebcac93efe6e8bde92f9a2f1da18`
 
 3. **Package** (for workspace projects only)

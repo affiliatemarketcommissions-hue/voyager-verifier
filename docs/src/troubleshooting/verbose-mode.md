@@ -349,7 +349,7 @@ Details:
 The compiled contract does not match the declared class hash.
 
 Possible causes:
-  - Source code doesn't match deployed contract
+  - Source code doesn't match declared contract class
   - Different dependency versions
   - Different compiler settings
   - Different Cairo/Scarb version

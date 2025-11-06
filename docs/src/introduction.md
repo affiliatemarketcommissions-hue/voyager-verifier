@@ -51,7 +51,7 @@ The verification process is straightforward:
 3. **Monitor Progress** - Track the verification status with built-in polling
 4. **View Results** - See your verified contract on Voyager with the verified badge
 
-The verifier collects your source files, compiles them remotely using the same build configuration, and compares the output with the deployed contract. If they match, your contract is marked as verified.
+The verifier collects your source files, compiles them remotely using the same build configuration, and compares the output with the declared contract class. If they match, your contract is marked as verified.
 
 ## Network Support
 
@@ -69,7 +69,7 @@ Voyager Verifier supports:
 Before using Voyager Verifier, you'll need:
 
 - A working Scarb project that builds successfully with `scarb build`
-- The class hash of your deployed contract
+- The class hash of your declared contract class
 - Your contract name
 - A valid SPDX license identifier (optional, defaults to "All Rights Reserved")
 

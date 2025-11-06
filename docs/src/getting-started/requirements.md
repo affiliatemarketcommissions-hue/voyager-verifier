@@ -123,13 +123,13 @@ sierra = true
 # inlining-strategy = "avoid"
 ```
 
-### Deployed Contract
+### Contract Class Information
 
 You must have:
 
-- **Class Hash**: The class hash of your deployed contract
+- **Class Hash**: The class hash of your declared contract class
 - **Contract Name**: The name of the contract to verify
-- **Network**: Where the contract is deployed (mainnet, sepolia, etc.)
+- **Network**: Where the contract class is declared (mainnet, sepolia, etc.)
 
 ### License (Optional)
 
@@ -212,7 +212,7 @@ Before attempting verification, ensure:
 
 - [ ] Scarb is installed and in PATH
 - [ ] Your project builds with `scarb --release build`
-- [ ] You have the class hash of your deployed contract
+- [ ] You have the class hash of your declared contract class
 - [ ] You know your contract name
 - [ ] Release profile configuration is in `Scarb.toml` if needed
 - [ ] Network connectivity to Voyager API

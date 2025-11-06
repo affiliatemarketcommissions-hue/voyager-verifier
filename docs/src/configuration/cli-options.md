@@ -81,7 +81,7 @@ voyager verify --url http://localhost:8080 \
 **Required:** Yes (unless using batch mode)
 **Config equivalent:** N/A (specified per contract)
 
-The class hash of your deployed Starknet contract.
+The class hash of your declared Starknet contract class.
 
 **Format:**
 - Must start with `0x`

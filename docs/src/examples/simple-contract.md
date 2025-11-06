@@ -195,7 +195,7 @@ voyager verify \
 
 **Flag Explanation:**
 - `--network mainnet` - Verify on Starknet mainnet
-- `--class-hash` - Your deployed class hash
+- `--class-hash` - The class hash from declaring your contract
 - `--contract-name` - Contract name from your Cairo code
 - `--license MIT` - SPDX license identifier (optional if in Scarb.toml)
 - `--watch` - Wait and display verification progress
@@ -321,7 +321,7 @@ Output:
 **Problem:** Class hash doesn't exist on the network
 
 **Solutions:**
-1. Verify the contract was actually declared/deployed
+1. Verify the contract class was actually declared on the network
 2. Check you're using the correct network (mainnet vs sepolia)
 3. Confirm the class hash is correct (no typos)
 

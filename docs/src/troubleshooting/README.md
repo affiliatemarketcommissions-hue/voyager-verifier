@@ -177,7 +177,7 @@ voyager history --network mainnet --limit 5
 cd my-project
 scarb --release build
 
-# 2. Get your class hash from deployment
+# 2. Get your class hash from declaration
 # Example: 0x044dc2b3...
 
 # 3. Verify with basic command

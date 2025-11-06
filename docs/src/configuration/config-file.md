@@ -362,7 +362,7 @@ package = "token"  # Optional
 **Type:** String
 **Required:** Yes
 
-The class hash of the deployed contract.
+The class hash of the declared contract class.
 
 ```toml
 [[contracts]]

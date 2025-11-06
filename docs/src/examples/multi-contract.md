@@ -1356,7 +1356,7 @@ voyager verify --watch --verbose
 **Common failure causes:**
 1. **Compilation errors** - Syntax errors, missing imports
 2. **Invalid class hash** - Typo or wrong network
-3. **Class hash not found** - Contract not deployed yet
+3. **Class hash not found** - Contract class not declared yet
 4. **Network errors** - API timeouts, connectivity issues
 5. **License errors** - Invalid SPDX identifier
 

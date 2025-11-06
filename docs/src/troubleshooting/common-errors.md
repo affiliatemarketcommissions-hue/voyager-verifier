@@ -169,7 +169,7 @@ mod utils;
 ```
 
 **Cause:**
-The source code you submitted doesn't produce the same class hash as the deployed contract.
+The source code you submitted doesn't produce the same class hash as the declared contract class.
 
 **Most Common Reasons:**
 

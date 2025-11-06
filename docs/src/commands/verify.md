@@ -10,7 +10,7 @@ voyager verify [OPTIONS]
 
 ## Description
 
-The `verify` command collects your contract source files, compiles them remotely using the same configuration you used for deployment, and verifies that the compiled output matches your deployed contract. Upon successful verification, your contract will display a verified badge on Voyager.
+The `verify` command collects your contract source files, compiles them remotely using the same build configuration, and verifies that the compiled output matches your declared contract class. Upon successful verification, your contract will display a verified badge on Voyager.
 
 ## Verification Modes
 
@@ -77,7 +77,7 @@ voyager verify --url https://api.custom.com/beta \
 
 #### `--class-hash <HASH>`
 
-The class hash of your deployed contract.
+The class hash of your declared contract class.
 
 **Format:** Hexadecimal string starting with `0x`
 

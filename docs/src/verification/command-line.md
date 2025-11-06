@@ -82,7 +82,7 @@ Use custom endpoints for:
 --class-hash <HASH>
 ```
 
-The class hash of your deployed contract.
+The class hash of your declared contract class.
 
 **Requirements:**
 - Must be a valid hexadecimal string

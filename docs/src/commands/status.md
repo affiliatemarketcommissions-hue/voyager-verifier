@@ -163,7 +163,7 @@ CLI arguments override config file values.
 - Performing verification checks
 
 **Verifying**
-- Comparing compiled output with deployed contract
+- Comparing compiled output with declared contract class
 
 ### Terminal Statuses
 
@@ -174,7 +174,7 @@ CLI arguments override config file values.
 
 **Failed** ❌
 - Verification failed
-- Compiled output doesn't match deployed contract
+- Compiled output doesn't match declared contract class
 - Use `--verbose` for details
 
 **CompileFailed** ❌
@@ -274,7 +274,7 @@ View on Voyager: https://voyager.online/class/0x044dc2b3...
 
 Job ID: abc-123-def-456
 Status: Failed
-Reason: Compiled output does not match deployed contract
+Reason: Compiled output does not match declared contract class
 
 Use --verbose for detailed error output
 ```
@@ -317,7 +317,7 @@ Use --verbose to see full compilation output
   "network": "mainnet",
   "submitted_at": "2025-01-15T10:30:00Z",
   "completed_at": "2025-01-15T10:32:45Z",
-  "error": "Compiled output does not match deployed contract"
+  "error": "Compiled output does not match declared contract class"
 }
 ```
 
