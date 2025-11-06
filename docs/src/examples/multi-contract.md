@@ -435,9 +435,16 @@ scarb build
     Finished release target(s) in 4 seconds
 ```
 
-## Step 5: Deploy All Contracts
+## Step 5: Declare All Contract Classes
 
-Deploy each contract and save the class hashes. For this example, assume you've deployed:
+Declare each contract class to Starknet and save the class hashes. **Note:** Verification requires the class hash from declaration, not contract deployment.
+
+**Starknet Distinction:**
+- **Declare** - Uploads contract class code to network → produces **class hash**
+- **Deploy** - Creates instance of a class → produces contract address
+- **Verification verifies the contract class**, not deployed instances
+
+For this example, assume you've declared the classes and received:
 
 **Token Contract:**
 ```
