@@ -47,18 +47,18 @@ Detailed rules for file collection and validation.
 **Use when:** Understanding what will be submitted for verification.
 
 ### [API Reference](api.md)
-**API endpoints, request/response formats, and job lifecycle**
+**Job status endpoint and response formats**
 
-Complete API documentation for developers.
+API documentation for checking verification job status.
 
-- **Endpoints**: Submit verification, get status, check class
-- **Request/Response Formats**: JSON schemas and examples
+- **Status Endpoint**: Get job status by job ID
+- **Response Formats**: JSON schemas and examples
 - **Job Status Codes**: 0-5 and their meanings
 - **Job Lifecycle**: State transitions and typical timing
 - **Network Endpoints**: Mainnet, Sepolia, Dev, Custom
 - **Error Handling**: API error responses and recovery
 
-**Use when:** Integrating with the API or understanding job statuses.
+**Use when:** Understanding job statuses and response formats.
 
 ---
 
@@ -153,56 +153,6 @@ Complete API documentation for developers.
 - Config file errors
 - Parse failures
 - Invalid settings
-
----
-
-## API Endpoints
-
-### Submit Verification
-
-```http
-POST /class-verify/{class_hash}
-Content-Type: application/json
-
-{
-  "name": "MyContract",
-  "contract_file": "src/contract.cairo",
-  "cairo_version": "2.8.4",
-  "scarb_version": "2.8.4",
-  "files": { ... }
-}
-```
-
-**Response:**
-```json
-{
-  "job_id": "abc123def456"
-}
-```
-
-### Get Job Status
-
-```http
-GET /class-verify/job/{job_id}
-```
-
-**Response:**
-```json
-{
-  "job_id": "abc123def456",
-  "status": 4,
-  "status_description": "Success",
-  "message": "Contract verified successfully"
-}
-```
-
-### Check Class Exists
-
-```http
-GET /classes/{class_hash}
-```
-
-**Response:** 200 OK (exists) or 404 Not Found
 
 ---
 
@@ -327,16 +277,16 @@ dojo = { version = "2.0.0" }
 4. Use `--dry-run` to preview collection
 5. Check if flag needed (`--lock-file`, `--test-files`)
 
-### Scenario 4: API Integration
+### Scenario 4: Understanding Job Status
 
-**Problem:** Building custom verification tool
+**Problem:** Understanding what status codes mean
 
 **Steps:**
 1. Go to [API Reference](api.md)
-2. Review endpoint documentation
-3. Check request/response formats
-4. Implement error handling
-5. Follow polling best practices
+2. Review job status codes documentation
+3. Check response formats
+4. Understand state transitions
+5. Learn about typical timing
 
 ### Scenario 5: Hash Mismatch
 
@@ -365,9 +315,9 @@ dojo = { version = "2.0.0" }
 
 **A:** See [Supported Versions](supported-versions.md#cairo-version-support). As of 2025, Cairo up to 2.11.4 is fully supported. Newer versions are added with a slight lag.
 
-### Q: How do I check job status via API?
+### Q: How do I check job status?
 
-**A:** See [API Reference](api.md#2-get-job-status) for the GET `/class-verify/job/{job_id}` endpoint documentation.
+**A:** Use the `voyager status` command. See [Status Command](../core-features/status.md) for usage details.
 
 ### Q: What does status code 2 mean?
 
@@ -422,7 +372,7 @@ dojo = { version = "2.0.0" }
 **...know what files are submitted**
 → [File Collection](file-collection.md)
 
-**...integrate with the API**
+**...understand job status codes**
 → [API Reference](api.md)
 
 **...fix a verification failure**
