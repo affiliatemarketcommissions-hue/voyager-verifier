@@ -1,83 +1,43 @@
-# voyager-verifier
+# BlockScout Web
 
-Contract class verification tool for the [Voyager Starknet block explorer](https://voyager.online).
+BlockScoutWeb is the API and presentation layer of BlockScout built on the Phoenix framework. It exposes RESTful and GraphQL APIs for accessing blockchain data. It directs HTTP requests through Phoenix routers to controllers that manage resources like addresses, transactions, blocks, and tokens. It formats responses as JSON via view modules. It provides real-time updates on new blocks, transactions, and exchange rates using Phoenix Channels. It supports smart contract verification through multiple methods including integration with Sourcify. Custom plugs add functionalities such as rate limiting, API version checks, and logging. Configuration is retrieved from the application environment. It manages errors through fallback controllers.
 
-[![Documentation](https://img.shields.io/badge/docs-mdBook-blue)](https://nethermindeth.github.io/voyager-verifier/)
+## Machine Requirements
 
-## Quick Start
+* Erlang/OTP 21+
+* Elixir 1.9+
+* Postgres 10.3
 
-### Installation
+## Required Accounts
 
-**With asdf (Recommended):**
-```bash
-asdf plugin add voyager https://github.com/NethermindEth/asdf-voyager-verifier.git
-asdf install voyager latest
-```
+* Github for code storage
 
-**With Cargo:**
-```bash
-cargo install voyager-verifier
-```
+## Setup Instructions
 
-### Basic Usage
+### Development
 
-**Interactive wizard (recommended for first-time users):**
-```bash
-voyager verify --wizard
-```
+To get BlockScout Web interface up and running locally:
 
-**Command-line mode:**
-```bash
-voyager verify --network mainnet \
-  --class-hash <YOUR_CLASS_HASH> \
-  --contract-name <CONTRACT_NAME>
-```
+* Setup `../explorer`
+* Install Node.js dependencies with `$ cd assets && npm install && cd ..`
+* Start Phoenix with `$ mix phx.server` (This can be run from this directory or the project root: the project root is recommended.)
 
-**Batch verification:**
-```bash
-# Define contracts in .voyager.toml, then:
-voyager verify
-```
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Documentation
+You can also run IEx (Interactive Elixir): `$ iex -S mix phx.server` (This can be run from this directory or the project root: the project root is recommended.)
 
-For comprehensive documentation, visit **[the official docs](https://nethermindeth.github.io/voyager-verifier/)** which includes:
+### Testing
 
-- [Getting Started Guide](https://nethermindeth.github.io/voyager-verifier/getting-started/)
-- [Configuration Reference](https://nethermindeth.github.io/voyager-verifier/configuration/)
-- [Batch Verification](https://nethermindeth.github.io/voyager-verifier/advanced/batch-verification.html)
-- [Verification History](https://nethermindeth.github.io/voyager-verifier/history/)
-- [Troubleshooting](https://nethermindeth.github.io/voyager-verifier/troubleshooting/)
-- [CLI Reference](https://nethermindeth.github.io/voyager-verifier/reference/)
+* Build the assets: `cd assets && npm run build`
+* Format the Elixir code: `mix format`
+* Lint the Elixir code: `mix credo --strict`
+* Run the dialyzer: `mix dialyzer --halt-exit-status`
+* Check the Elixir code for vulnerabilities: `mix sobelow --config`
+* Update translation templates and translations and check there are no uncommitted changes: `mix gettext.extract --merge`
+* Lint the JavaScript code: `cd assets && npm run eslint`
 
-## Development
+## Internationalization
 
-### Building from Source
+The app is currently internationalized. It is only localized to U.S. English.
 
-```bash
-git clone https://github.com/NethermindEth/voyager-verifier.git
-cd voyager-verifier
-cargo build --release
-```
-
-### Running Tests
-
-```bash
-cargo test
-```
-
-### Building Documentation
-
-```bash
-cd docs
-mdbook serve
-# Visit http://localhost:3000
-```
-
-## Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](https://nethermindeth.github.io/voyager-verifier/contributing/) for guidelines.
-
-## License
-
-This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+To translate new strings, run `$ mix gettext.extract --merge` and edit the new strings in `priv/gettext/en/LC_MESSAGES/default.po`.
